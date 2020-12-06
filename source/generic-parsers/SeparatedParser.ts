@@ -1,4 +1,3 @@
-import { FatalParserError } from '../error/FatalParserError';
 import { NormalParserError } from '../error/NormalParserError';
 import { Source } from '../interface/Source';
 import { Parser } from './Parser';
@@ -20,7 +19,7 @@ export function SeparatedParser<TSource extends Source, TObject>(itemParser: Par
                 let separator = separatorParser(item.state);
                 item = itemParser(separator.state);
             } catch (error) {
-                if ((error instanceof NormalParserError) && !(error instanceof FatalParserError)) {
+                if (error instanceof NormalParserError) {
                     break;
                 }
                 throw error;

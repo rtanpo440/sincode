@@ -1,4 +1,3 @@
-import { FatalParserError } from '../error/FatalParserError';
 import { NormalParserError } from '../error/NormalParserError';
 import { Source } from '../interface/Source';
 import { Parser } from './Parser';
