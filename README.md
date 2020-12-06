@@ -23,7 +23,7 @@ Created in TS, and contains declarations in the module.
 ### Node
 
 ```
-npm install sincode
+npm install rtanpo440/sincode
 ```
 
 
