@@ -46,7 +46,7 @@ npm install rtanpo440/sincode
 ### Basics
 
 ```ts
-import sincode from 'sincode';
+import * as sincode from 'sincode';
 
 // define comma-separated identifiers.
 // SeparatedParser returns a list of items
@@ -77,7 +77,7 @@ try {
 ### Sequence
 
 ```ts
-import sincode from 'sincode';
+import * as sincode from 'sincode';
 
 // define assign statement
 const parser = sincode.Parser((state: sincode.State<string>) => {
