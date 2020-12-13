@@ -14,6 +14,7 @@ import { State } from '../interface/State';
  */
 export interface Parser<TSource extends Source, TObject> {
     (state: State<TSource>): Result<TSource, TObject>;
+    label?: string;
 }
 
 /**

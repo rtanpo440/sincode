@@ -136,6 +136,7 @@ try {
 - `CustomErrorParser` - Customizes the error message.
 - `FatalizeParser` - Changes the error class from NormalParserError to FatalParserError.
 - `InstanceParser` - Reads an instance.
+- `LabelParser` - Sets a label for SequenceParser, etc.
 - `MapParser` - Converts the object read.
 - `OptionalParser` - Returns a specified default object instead of raising an error if the inner parser fails.
 - `Parser` - Creates a custom sequence parser.
@@ -143,6 +144,7 @@ try {
 - `RepeatParser` - Reads something multiple times.
 - `ReturnParser` - Returns a constant object.
 - `SeparatedParser` - Reads the separated items.
+- `SequenceParser` - Reads all specified parsers in order.
 - `StringParser` - Reads a constant string.
 - `TrimmedParser` - Trims heading or trailing spaces.
 

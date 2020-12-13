@@ -1,4 +1,4 @@
-import s from '../source';
+import * as s from '../source';
 
 function parse<TSource extends s.Source, TObject>(parser: s.Parser<TSource, TObject>, source: TSource) {
     const state = s.State(source);
@@ -11,6 +11,11 @@ function parse<TSource extends s.Source, TObject>(parser: s.Parser<TSource, TObj
         };
     }
 }
+
+const parsers = {
+    identifier: s.PatternParser(/[a-z_][a-z0-9_]*/i),
+    numeric: s.PatternParser(/[1-9][0-9]*/),
+};
 
 describe('ObjectParser', () => {
     test('Read "foo" from "foo" and return "bar"', () => {
@@ -71,6 +76,41 @@ describe('PatternParser', () => {
         expect(parse(parser, source).object).toBeUndefined();
         expect(parse(parser, source).state.position).toBe(0);
         expect(parse(parser, source).state.remainder).toBe(source);
+    });
+});
+
+describe('SequenceParser', () => {
+    test('Read an assignment statement from "a = 3"', () => {
+        const parser = s.SequenceParser([
+            s.TrimmedParser(parsers.identifier),
+            s.TrimmedParser(s.StringParser('=')),
+            s.TrimmedParser(parsers.numeric),
+        ]);
+        const source = 'a = 3';
+        console.log(parse(parser, source).object);
+        expect(parse(parser, source).object).toEqual({
+            0: 'a',
+            1: '=',
+            2: '3',
+        });
+        expect(parse(parser, source).state.position).toBe(5);
+        expect(parse(parser, source).state.remainder).toBe('');
+    });
+
+    test('Read an assignment statement from "b = 5" using labeled parsers', () => {
+        const parser = s.SequenceParser([
+            s.LabelParser(s.TrimmedParser(parsers.identifier), 'left'),
+            s.TrimmedParser(s.StringParser('=')),
+            s.LabelParser(s.TrimmedParser(parsers.numeric), 'right'),
+        ]);
+        const source = 'b = 5';
+        expect(parse(parser, source).object).toEqual({
+            left: 'b',
+            1: '=',
+            right: '5',
+        });
+        expect(parse(parser, source).state.position).toBe(5);
+        expect(parse(parser, source).state.remainder).toBe('');
     });
 });
 
